@@ -1,12 +1,24 @@
-FLAGS := -std=c99
 
-all: main.o geometry.o
-	gcc -Wall -Wextra main.o geometry.o -o main -lm $(FLAGS)
-main.o: main.c
-	gcc -Wall -Wextra -c main.c -o main.o $(FLAGS)
-IntVector.o: IntVector.c
-	gcc -Wall -Wextra -c geometry.c -o geometry.o $(FLAGS)
+all: build bin bin/main
 
 clean:
-	rm -f *.o
-	rm -f main
+
+	-rm -f bin/main build/*.o
+
+bin/main: build/main.o build/geometry.o
+
+	gcc -Wall -Wextra build/main.o build/geometry.o -o bin/main -lm
+
+build/main.o: src/main.c
+
+	gcc -Wall -Wextra -c src/main.c -o build/main.o
+
+build/geometry.o: src/geometry.c
+
+	gcc -Wall -Wextra -c src/geometry.c -o build/geometry.o
+
+bin:
+	mkdir bin
+build:
+	mkdir build
+.PHONY: clean
