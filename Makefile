@@ -1,23 +1,40 @@
-all: build bin bin/main
+all: build/src build/test bin bin/main
 
 clean:
 
-	-rm -f bin/main build/*.o
+	-rm -f bin/main build/src/*.o
+	-rm -f bin/main build/test/*.o
 
-bin/main: build/main.o build/geometry.o
+bin/main: build/src/main.o build/src/geometry.o
 
-	gcc -Wall -Werror build/main.o build/geometry.o -o bin/main -lm
+	gcc -Wall -Werror build/src/main.o build/src/geometry.o -o bin/main -lm
 
-build/main.o: src/main.c
+build/src/main.o: src/main.c
 
-	gcc -Wall -Werror -c src/main.c -o build/main.o
+	gcc -Wall -Werror -c src/main.c -o build/src/main.o
 
-build/geometry.o: src/geometry.c
+build/src/geometry.o: src/geometry.c
 
-	gcc -Wall -Werror -c src/geometry.c -o build/geometry.o
+	gcc -Wall -Werror -c src/geometry.c -o build/src/geometry.o
+
+
+
+bin/main: build/test/main.o build/test/geometry_test.o
+
+		gcc -Wall -Werror build/test/main.o build/test/geometry_test.o -o bin/testing -lm
+
+build/test/main.o: test/main.c
+
+		gcc -Wall -Werror -c test/main.c -o build/test/main.o
+
+build/test/geometry_test.o: test/geometry_test.c
+
+		gcc -Wall -Werror -c test/geometry_test.c -o build/test/geometry_test.o
 
 bin:
 	mkdir bin
-build:
-	mkdir build
+build/src:
+	mkdir -p build/src
+build/test:
+	mkdir -p build/test
 .PHONY: clean
