@@ -1,8 +1,9 @@
-all: build/src build/test bin bin/main
+all: build/src build/test bin bin/main bin/testing
 
 clean:
 
-	-rm -f bin/main build/src/*.o build/test/*.o
+	-rm -f bin/main build/src/*.o
+	-rm -f bin/testing build/test/*.o
 
 bin/main: build/src/main.o build/src/geometry.o
 
@@ -18,7 +19,7 @@ build/src/geometry.o: src/geometry.c
 
 
 
-bin/main: build/test/main.o build/test/geometry_test.o
+bin/testing: build/test/main.o build/test/geometry_test.o
 
 		gcc -Wall -Werror build/test/main.o build/test/geometry_test.o -o bin/testing -lm
 
