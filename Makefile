@@ -2,8 +2,7 @@ all: build/src build/test bin bin/main
 
 clean:
 
-	-rm -f bin/main build/src/*.o
-	-rm -f bin/main build/test/*.o
+	-rm -f bin/main build/src/*.o build/test/*.o
 
 bin/main: build/src/main.o build/src/geometry.o
 
