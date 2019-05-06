@@ -1,24 +1,24 @@
 #include "geometry.h"
+#include "parser.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TRIANGLE 1
-#define CIRCLE 2
 
 int main()
 {
     FILE* myfile;
-    myfile = fopen("myfile.txt", "r");
+    myfile = fopen("./example/myfile.txt", "r");
     if (myfile == NULL) {
         printf("No file\n");
         return 1;
     }
+    int i = 0;
+    int j = 0;
     printf("You input:\n");
     int capacity = 100;
     int size = 0;
     char arr[256];
-    int i = 0;
     Figure* new = (Figure*)malloc(sizeof(Figure) * capacity);
     if (new == NULL) {
         printf("Alloceted error\n");
@@ -28,7 +28,10 @@ int main()
         if (size < capacity) {
             if (arr[i - 1] == '\n') {
                 arr[i - 1] = '\0';
-                Parser(&new[size], arr);
+                printf("-----str %d-----\n", size + 1);
+                if (!(First_Character(arr)) && !(Parser(&new[size], arr))) {
+                    Work(&new[size]);
+                }
                 size++;
                 i = 0;
             }
@@ -41,22 +44,17 @@ int main()
             }
         }
     }
-    int j;
+    // Figure a = {TRIANGLE, {-1, 0, 1, 0}, 8};
+    // Figure b = {TRIANGLE, {0, -1, 0, 1}, 8};
     for (i = 0; i < size; i++) {
-        double S, P;
-        if (new[i].type == CIRCLE) {
-            printf("Figure circle\n");
-            S_And_P_Circle(&S, &P, &new[i]);
-            printf("S = %.3f\nP = %.3f\n", S, P);
-        } else if (new[i].type == TRIANGLE) {
-            printf("Figure triangle\n");
-            S_And_P_Triangle(&S, &P, &new[i]);
-            printf("S = %.3f\nP = %.3f\n", S, P);
-        }
-        j = 0;
-        while (j < new[i].size) {
-            printf("coordinat %d: %.2f\n", j + 1, new[i].coordinates[j]);
-            j++;
+        for (j = 0 + i; j < size; j++) {
+            if (i != j) {
+                // InSecTrTr(&a, &b, i, j);
+                InSecTrTr(&new[i], &new[j], i, j);
+                // InSecTrCir(&new[i], &new[j], i, j);
+                // InSecCirTr(&new[i], &new[j], i, j);
+                // InSecCirCir(&new[i], &new[j], i, j);
+            }
         }
     }
     return 0;
