@@ -29,15 +29,15 @@ bin/testing: build/test/main.o build/test/geometry_test.o build/test/parser_test
 
 build/test/main.o: test/main.c
 
-		gcc -I thirdparty src -c test/main.c -o build/test/main.o lm -std=c11
+		gcc -I thirdparty -c test/main.c -o build/test/main.o
 
 build/test/geometry_test.o: test/geometry_test.c
 
-		gcc -I thirdparty src -c test/geometry_test.c -o build/test/geometry_test.o lm -std=c11
+		gcc -I thirdparty -c test/geometry_test.c -o build/test/geometry_test.o
 
 build/test/parser_test.o: test/parser_test.c
 
-		gcc -I thirdparty src -c test/parser_test.c -o build/test/parser_test.o lm -std=c11
+		gcc -I thirdparty -c test/parser_test.c -o build/test/parser_test.o
 
 bin:
 	mkdir bin
