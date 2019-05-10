@@ -23,7 +23,7 @@ CTEST(geometry, First_Character_normal_2)
     ASSERT_EQUAL(exp, real);
 }
 
-CTEST(geometry, First_Character_Error_1)
+/*CTEST(geometry, First_Character_Error_1)
 {
     // Given
     char* a = "Zircle(0 0, 1.5)";
